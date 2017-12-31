@@ -379,4 +379,63 @@ std::vector<Edge> Algorithms::createContours(std::vector<Edge> &dt, double zmin,
 
 }
 
+std::vector<Triangle> Algorithms::convertDTM(std::vector<Edge>&dt){
+    std::vector<Triangle> dtt;
 
+    for(int i=0; i<dt.size()-2; i += 3 ){
+        QPoint3D p1 = dt[i].getStart();
+        QPoint3D p2 = dt[i].getEnd();
+        QPoint3D p3 = dt[i+1].getEnd();
+
+        Triangle t(p1,p2,p3,0,0);
+        dtt.push_back(t);
+    }
+
+    return dtt;
+}
+
+double Algorithms::getSlope(Triangle &tr)
+{
+    QPoint3D p1 = tr.getP1();
+    QPoint3D p2 = tr.getP2();
+    QPoint3D p3 = tr.getP3();
+
+    double ux = p1.getX() - p2.getX();
+    double uy = p1.getY() - p2.getY();
+    double uz = p1.getZ() - p2.getZ();
+    double vx = p3.getX() - p2.getX();
+    double vy = p3.getY() - p2.getY();
+    double vz = p3.getZ() - p2.getZ();
+
+    double nx = uy*vz-vy*uz;
+    double ny = -(ux*vz-vx*uz);
+    double nz = ux*vy-vx*uy;
+
+    return acos(fabs(nz)/ sqrt(nx*nx + ny*ny + nz*nz)) * 180/ atan (1);
+
+}
+
+double Algorithms::getExposition(Triangle &tr){
+    QPoint3D p1 = tr.getP1();
+    QPoint3D p2 = tr.getP2();
+    QPoint3D p3 = tr.getP3();
+
+    double ux = p1.getX() - p2.getX();
+    double uy = p1.getY() - p2.getY();
+    double uz = p1.getZ() - p2.getZ();
+    double vx = p3.getX() - p2.getX();
+    double vy = p3.getY() - p2.getY();
+    double vz = p3.getZ() - p2.getZ();
+
+    double nx = uy*vz-vy*uz;
+    double ny = -(ux*vz-vx*uz);
+
+    return atan2(nx,ny)* 180/ atan (1);
+}
+
+void Algorithms::getSlopes(std::vector<Triangle> &dtt)
+{
+    for(int i = 0; i<dtt.size(); i++){
+        dtt[i].setSlope(getSlope(dtt[i]));
+    }
+}

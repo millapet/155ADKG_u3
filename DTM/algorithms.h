@@ -4,6 +4,7 @@
 
 #include "edge.h"
 #include "qpoint3d.h"
+#include "triangle.h"
 
 class Algorithms
 {
@@ -18,6 +19,10 @@ public:
     static QPoint3D getConPoint(QPoint3D &p1,QPoint3D &p2, double z);
 
     static std::vector<Edge> createContours(std::vector<Edge>&dt, double zmin, double zmax, double h);
+    static std::vector<Triangle> convertDTM(std::vector<Edge>&dt);
+    static double getSlope(Triangle &tr);
+    static double getExposition(Triangle &tr);
+    static void getSlopes(std::vector<Triangle> &dtt);
 };
 
 #endif // ALGORITHMS_H

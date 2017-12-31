@@ -15,6 +15,19 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
 
+private slots:
+    void on_loadButton_clicked();
+
+    void on_delaunayButton_clicked();
+
+    void on_slopeButton_clicked();
+
+    void on_orientationButton_clicked();
+
+    void on_contourButton_clicked();
+
+    void on_clearButton_clicked();
+
 private:
     Ui::Widget *ui;
 };

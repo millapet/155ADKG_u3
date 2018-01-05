@@ -13,191 +13,182 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="draw" name="Canvas" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>871</width>
-     <height>773</height>
-    </rect>
-   </property>
-   <zorder>widget_2</zorder>
-   <zorder>delaunayButton</zorder>
-   <zorder>orientationButton</zorder>
-   <zorder>contourButton</zorder>
-   <zorder>label_6</zorder>
-   <zorder>slopeButton</zorder>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>890</x>
-     <y>11</y>
-     <width>152</width>
-     <height>771</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QPushButton" name="loadButton">
-      <property name="text">
-       <string>Load data</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="report">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="delaunayButton">
-      <property name="text">
-       <string>Delaunay triangulation</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="slopeButton">
-      <property name="text">
-       <string>Slope</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="orientationButton">
-      <property name="text">
-       <string>Orientation</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="contourButton">
-      <property name="text">
-       <string>Contour lines</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>Main contour distance [m]</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="mcdist"/>
-    </item>
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Contour distance [m]</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="cdist"/>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>user's top height [m]</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit"/>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>user's low height [m]</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_2"/>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>TOP height [m]</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="topheight">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>LOW height [m]</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="lowheight">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="clearButton">
-      <property name="text">
-       <string>Clear</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Minimum</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>17</width>
-        <height>108</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-   </layout>
-  </widget>
-  <zorder>Canvas</zorder>
-  <zorder>verticalSpacer</zorder>
-  <zorder>loadButton</zorder>
-  <zorder>loadButton</zorder>
-  <zorder>delaunayButton</zorder>
-  <zorder>slopeButton</zorder>
-  <zorder>orientationButton</zorder>
-  <zorder>contourButton</zorder>
-  <zorder>label_6</zorder>
-  <zorder>mcdist</zorder>
-  <zorder>label</zorder>
-  <zorder>cdist</zorder>
-  <zorder>label_2</zorder>
-  <zorder>lineEdit</zorder>
-  <zorder>label_5</zorder>
-  <zorder>lineEdit_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>topheight</zorder>
-  <zorder>label_4</zorder>
-  <zorder>lowheight</zorder>
-  <zorder>clearButton</zorder>
-  <zorder>verticalSpacer</zorder>
-  <zorder>report</zorder>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="draw" name="Canvas" native="true"/>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_2" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>237</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>237</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="loadButton">
+        <property name="text">
+         <string>Load data</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="delaunayButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Delaunay triangulation</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="contourButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Contour lines</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="slopeButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Slope</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="orientationButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Orientation</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clearButton">
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="report">
+        <property name="text">
+         <string>Press &quot;Load data&quot; to load a text file of points.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Lowest point [m]:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lowheight">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Highest point [m] : </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="topheight">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Contours from:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="userlowheight">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Contours to: </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="usertopheight">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Contour interval: </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="cdist">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

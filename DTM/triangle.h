@@ -9,7 +9,7 @@ private:
     double slope, exposition;
 
 public:
-    Triangle(QPoint3D &p1_,QPoint3D &p2_,QPoint3D &p3_, double slope_, double exposition_): p1(p1_),p2(p2_),p3(p3_),slope(slope_),exposition(exposition_){};
+    Triangle(QPoint3D &p1_,QPoint3D &p2_,QPoint3D &p3_, double slope_, double exposition_): p1(p1_),p2(p2_),p3(p3_),slope(slope_),exposition(exposition_){}
 
     QPoint3D getP1(){return p1;}
     QPoint3D getP2(){return p2;}

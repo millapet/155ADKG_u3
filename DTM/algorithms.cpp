@@ -67,7 +67,7 @@ int Algorithms::getDelaunayPoint(Edge &e, std::vector <QPoint3D> &points)
     int i_min = -1;
     double r_min = 1e9;
 
-    for( int i = 0 ; i < points.size() ; i++)
+    for(unsigned int i = 0 ; i < points.size() ; i++)
     {
         int test = getPosition(points[i], p1, p2);
         if( test > 0){
@@ -87,7 +87,7 @@ int Algorithms::getNearestPoint(QPoint3D &p, std::vector <QPoint3D> &points)
     int i_min = -1;
     double d_min = 1e9;
 
-    for(int i = 0; i < points.size(); i++)
+    for(unsigned int i = 0; i < points.size(); i++)
     {
         double dy =points[i].getY() - p.getY();
         double dx =points[i].getX() - p.getX();
@@ -259,7 +259,7 @@ std::vector<Edge> Algorithms::createContours(std::vector<Edge> &dt, double zmin,
     std::vector<Edge> contours;
     double eps = 5e-4;
 
-    for(int i=0; i<dt.size()-2; i=i+3){
+    for(unsigned int i=0; i<dt.size()-2; i=i+3){
 
         //Get triangle vertices
         QPoint3D p1=dt[i].getStart();
@@ -320,7 +320,7 @@ std::vector<Edge> Algorithms::createContours(std::vector<Edge> &dt, double zmin,
                 continue;
 
             // case 4 - contour line passing through a point and intersecting edge
-            else if(b1 && bi23 || b2 && bi31  || b3 && bi12){
+            else if((b1 && bi23) || (b2 && bi31)  || (b3 && bi12)){
                 //p1 x (p2,p3)
                 if(b1 && bi23)
                 {
@@ -342,7 +342,7 @@ std::vector<Edge> Algorithms::createContours(std::vector<Edge> &dt, double zmin,
             }
 
             // case 5 - contour line intersects both edges
-            else if(bi12 && bi31 || bi23 && bi12 || bi23 && bi31)
+            else if((bi12 && bi31) || (bi23 && bi12) || (bi23 && bi31))
             {
                     //(p1,p2) x (p3,p1)
                     if(bi12 && bi31)
@@ -382,7 +382,7 @@ std::vector<Edge> Algorithms::createContours(std::vector<Edge> &dt, double zmin,
 std::vector<Triangle> Algorithms::convertDTM(std::vector<Edge>&dt){
     std::vector<Triangle> dtt;
 
-    for(int i=0; i<dt.size()-2; i += 3 ){
+    for(unsigned int i=0; i<dt.size()-2; i += 3 ){
         QPoint3D p1 = dt[i].getStart();
         QPoint3D p2 = dt[i].getEnd();
         QPoint3D p3 = dt[i+1].getEnd();
@@ -435,7 +435,7 @@ double Algorithms::getExposition(Triangle &tr){
 
 void Algorithms::getSlopes(std::vector<Triangle> &dtt)
 {
-    for(int i = 0; i<dtt.size(); i++){
+    for(unsigned int i = 0; i<dtt.size(); i++){
         dtt[i].setSlope(getSlope(dtt[i]));
     }
 }

@@ -204,12 +204,14 @@ void draw::clear()
     drawpolygons.clear();
     cont_edge.clear();
     mcont_edge.clear();
+    /*
     minZ = 0;
     maxZ=0;
     minX = 0;
     maxX = 0;
     minY = 0;
     maxY = 0;
+    */
     maxhd = 0;
     minhd = 0;
     mdistd = 0;

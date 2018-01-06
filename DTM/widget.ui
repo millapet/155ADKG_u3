@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string>DMT</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>

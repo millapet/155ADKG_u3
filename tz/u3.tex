@@ -171,7 +171,6 @@
 \section{Popis a rozbor problému} %+vzorce
 \indent Výstupem je program, který dokáže vytvořit nad prostorovou množinou DMT pomocí triangulace, vrstevnice a vizualizovat sklon terénu a jeho expozici. 
 
-\clearpage
 \section{Popisy algoritmů} %formálním jazykem
 \subsection{Delaunay triangulace}
 \indent Delaunay triangulace je nejčastěji používanou triangulací v oblasti GIS, lze jí provádět jak plošně, tak prostorově. \\
@@ -202,24 +201,52 @@ $$\varphi = \arccos(\frac{n_1n_2}{|n_1n_2|}).$$
 \indent Orientace svahu v bodě je definována jako azimut $A$ průmětu gradientu $\bigtriangledown\rho(x_0,y_0,z_0)$ do roviny $xy$, který se spočte jako
 $$A = \arctan(\frac{n_1}{n_2}), A\in\langle0,2\pi),$$
 kde $n_1, n_2$ jsou vektorové součiny vektorů, které tvoří daný trojůhelník.
-\bigskip
-\clearpage
-\newpage
-\section{Vstupní data}
 
+\section{Vstupní data}
+\indent Do programu lze načíst soubor ve formátu \textit{*.txt}, který na každém řádku obsahuje XYZ souřadnice jednoho vkládaného bodu: \\
+\texttt{
+54625.84 23547.74 250.5 \\
+54826.52 23580.78 266.7 \\
+54752.66 23612.32 245.8 \\
+.\\
+.\\
+.}
 \section{Výstupní data}
+\indent Program načte vstupní data a po stisku tlačítka \textit{Delaunay triangulation} vykreslí body a jejich triangulaci. Při každém vykreslení triangulace se aktualizuje šířka okna a podle té se pak body natransformují a zobrazí.
+\indent Poté si uživatel může zvolit, zda chce vizualizaci vrstevnic (tlačítko \textit{Contour lines}) - zde je potřeba si nastavit požadovaný interval a rozmezí, ve kterém se vrstevnice generují (pro orientaci vidí uživatel výšku nejnižšího a nejvyššího z načtených bodů). Také lze barevně zobrazit sklon terénu (\textit{Slope}) a  jeho orientaci (\textit{Orientation}). Pro vyčištění plochy a ponechání pouze načtených bodů slouží tlačítko \textit{Clear}. \\
+
 
 \section{Ukázky aplikace} %printscreen
-\clearpage
-\newpage
+\indent Vzhledem k nejasné chybě v algoritmu pro triangulaci je tato kapitola omezená jen na ukázku vzhledu UI a vykreslení vrstevnic. \\
+\begin{figure}[htbp]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{startup.jpg}
+        \caption{Vzhled aplikace při otevření}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{triangulate.jpg}
+        \caption{Aplikace po provedení triangulace}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{contours.jpg}
+        \caption{Aplikace po zobrazení vrstevnic}
+\end{figure}
 
 \section{Závěr}
+Byla vytvořena aplikace, která nad Delaunay triangulací počítá a zobrazuje sklon, vrstevnice a orientaci svahu. Aplikace má pár nedostatků, které již bohužel autoři nestihli opravit.
 	\subsection{Náměty na vylepšení} %+možné či neřešené problémy
+	V aplikaci je několik problému, které jsou vyřešeny špatně a bohužel nezbyl čas je opravit. Mezi tyto chyby patří: 
+	\begin{itemize}
+	\item Špatné počítání sklonu - barva by se měla údajně měnit v různých stupních šedi.
+	\item Špatný výpočet orientace - při každém překreslení dává jiné výsledky.
+	\item Špatné zadávání velkého množství dat - z autorce neznámého důvodu program zvládá načíst menší soubor s ručně psanými daty, ale data převzatá od kolegy Bc. Bucka a upravená autorem načíst nelze. Autorka se domnívá, že je problém buď ve formátu převzatých dat nebo v načítání, které by mohlo být zbytečně pomalé a zdlouhavé. Bohužel nezbyl čas na to zjistit, o kterou z těchto dvou příčin by se mohlo jednat. 
+	\end{itemize}
 	
-\bibliography{u1}
-\bibliographystyle{plain}
-\addcontentsline{toc}{section}{References}
-\pagestyle{empty}
+%\pagestyle{empty}
 
 %\end{homeworkSection}
 \clearpage

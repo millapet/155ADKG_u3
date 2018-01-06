@@ -6,6 +6,7 @@
 #include "triangle.h"
 #include "edge.h"
 #include "sortbyxasc.h"
+#include "sortbyyasc.h"
 
 
 draw::draw(QWidget *parent) : QWidget(parent)
@@ -31,27 +32,36 @@ void draw::loaddata(std::vector<double> &data){
 
      }
 
-    std::vector<QPoint3D> points_sort;
+    std::vector<QPoint3D> points_sortZ;
     double x1;
     double z1;
-
     for(unsigned int i = 0; i < coordinates.size(); i++)
     {
          x1 = coordinates[i].getX();
          z1 = coordinates[i].getZ();
 
          QPoint3D h_point (z1, x1, 0);
-         points_sort.push_back(h_point);
+         points_sortZ.push_back(h_point);
     }
 
-    std::sort(points_sort.begin(), points_sort.end(), sortByXAsc());
+    std::sort(points_sortZ.begin(), points_sortZ.end(), sortByXAsc());
+    minZ = points_sortZ[0].getX();
+    maxZ = points_sortZ[points_sortZ.size()-1].getX();
 
-    min = points_sort[0].getX();
-    max = points_sort[points_sort.size()-1].getX();
+    std::sort(coordinates.begin(),coordinates.end(),sortByXAsc());
+    minX = coordinates[0].getX();
+    maxX = coordinates[coordinates.size()-1].getX();
+
+    std::sort(coordinates.begin(),coordinates.end(),sortByYAsc());
+    minY = coordinates[0].getY();
+    maxY = coordinates[coordinates.size()-1].getY();
 
 }
 
-void draw::delaunaydraw(){
+void draw::delaunaydraw(QSize s){
+    h = s.height();
+    w = s.width();
+
    edges=Algorithms::dt(coordinates);
    triangulations = Algorithms::convertDTM(edges);
 }
@@ -61,6 +71,8 @@ void draw::slopedraw(){
     // convert triangles to polygons
     QPainter painter(this);
     painter.begin(this);
+    painter.scale(w/(maxX-minX),h/(maxY-minX));
+    painter.translate(-minX,-minY);
 
     QPolygonF pol;
 
@@ -97,6 +109,8 @@ void draw::slopedraw(){
 void draw::orientdraw(){
     QPainter painter(this);
     painter.begin(this);
+    painter.scale(w/(maxX-minX),h/(maxY-minX));
+    painter.translate(-minX,-minY);
 
     // convert triangles to polygons
     QPolygonF pol;
@@ -160,6 +174,8 @@ void draw::orientdraw(){
 void draw::contoursdrawing(){
     QPainter painter(this);
     painter.begin(this);
+    painter.scale(w/(maxX-minX),h/(maxY-minX));
+    painter.translate(-minX,-minY);
     mdistd=distd*5;
     cont_edge=Algorithms::createContours(edges, minhd, maxhd, distd);
     mcont_edge=Algorithms::createContours(edges, minhd, maxhd, mdistd);
@@ -188,8 +204,12 @@ void draw::clear()
     drawpolygons.clear();
     cont_edge.clear();
     mcont_edge.clear();
-    min = 0;
-    max=0;
+    minZ = 0;
+    maxZ=0;
+    minX = 0;
+    maxX = 0;
+    minY = 0;
+    maxY = 0;
     maxhd = 0;
     minhd = 0;
     mdistd = 0;
@@ -205,15 +225,14 @@ void draw::paintEvent(QPaintEvent *e)
 
     QPainter painter(this);
     painter.begin(this);
+    painter.scale(w/(maxX-minX),h/(maxY-minX));
+    painter.translate(-minX,-minY);
     // draw points
     for(unsigned int i = 0; i < coordinates.size(); i++)
     {
         painter.drawPoint(coordinates[i]);
         painter.drawEllipse(coordinates[i].x()-1, coordinates[i].y()-1, 2, 2);
     }
-
-    //coordinates_bool=true;
-
 
     // draw triangles
     for(unsigned int i = 0; i < edges.size(); i++)

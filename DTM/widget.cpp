@@ -57,8 +57,8 @@ void Widget::on_loadButton_clicked()
 
 
    ui->Canvas->loaddata(data);
-  double Min=ui->Canvas->min;
-  double Max=ui->Canvas->max;
+  double Min=ui->Canvas->minZ;
+  double Max=ui->Canvas->maxZ;
    ui->topheight->setNum(Max);
    ui->lowheight->setNum(Min);
    ui->report->setText("Now apply the Delaunay triangulation.");
@@ -68,8 +68,8 @@ void Widget::on_loadButton_clicked()
 
 void Widget::on_delaunayButton_clicked()
 {
-
-     ui->Canvas->delaunaydraw();
+     QSize s = ui->Canvas->size();
+     ui->Canvas->delaunaydraw(s);
      ui->Canvas->repaint();
 
      ui->Canvas->repaint();

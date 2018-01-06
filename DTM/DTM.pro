@@ -31,6 +31,7 @@ SOURCES += \
     algorithms.cpp \
     sortbyxasc.cpp \
     triangle.cpp \
+sortbyyasc.cpp \
 draw.cpp
 
 HEADERS += \
@@ -40,6 +41,7 @@ HEADERS += \
     algorithms.h \
     sortbyxasc.h \
     triangle.h \
+sortbyyasc.h \
 draw.h
 
 FORMS += \

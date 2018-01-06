@@ -20,15 +20,18 @@ public:
     bool slopeflag=false;
     bool orientflag=false;
     bool contflag = false;
-    double min;
-    double max;
+    double minZ;
+    double maxZ;
     int maxhd;
     int minhd;
     int mdistd;
     int distd;
-
+    double minX;
+    double maxX;
+    double minY;
+    double maxY;
     void loaddata(std::vector<double> &data);
-    void delaunaydraw();
+    void delaunaydraw(QSize s);
     void clear();
 private:
     std::vector<Edge> edges;
@@ -39,6 +42,9 @@ private:
     void slopedraw();
     void orientdraw();
     void contoursdrawing();
+
+    int w;
+    int h;
 
 signals:
 

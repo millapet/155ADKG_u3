@@ -21,11 +21,11 @@ void draw::loaddata(std::vector<double> &data){
     double z;
 
     // data parse
-    for( unsigned int i = 0; i < data.size(); i=i+3) //i+4
+    for( unsigned int i = 0; i < data.size(); i=i+4) //i+4
     {
-         x = data[i];
-         y = data[i + 1];
-         z = data[i + 2];
+         x = data[i + 1];
+         y = data[i + 2];
+         z = data[i + 3];
 
          QPoint3D p (x, y, z);
          coordinates.push_back(p);
@@ -88,8 +88,9 @@ void draw::slopedraw(){
     }
     for(unsigned int i = 0; i < drawpolygons.size(); i++)
     {   //try to change shade of colour
-        unsigned col = triangulations[i].getSlope()*200/180;
-        col =col+ 5;
+    //    unsigned col = triangulations[i].getSlope()*200/180;
+        unsigned col=Algorithms::getSlope(triangulations[i]);
+        col=col*200/180+3;
 
         // set filling color
         QBrush painpolslope;
@@ -128,7 +129,7 @@ void draw::orientdraw(){
 
     for(unsigned int i = 0; i < drawpolygons.size(); i++)
     {
-        double exposit_angl = triangulations[i].getExposition();
+        double exposit_angl = Algorithms::getExposition(triangulations[i]);
 
         // set filling color
         QBrush painpolorient;

@@ -439,8 +439,8 @@ double Algorithms::getSlope(Triangle &tr)
     double ny = -(ux*vz-vx*uz);
     double nz = ux*vy-vx*uy;
 
-    return acos(fabs(nz)/ sqrt(nx*nx + ny*ny + nz*nz)) * 180/ atan (1);
-
+    return acos(fabs(nz)/ sqrt(nx*nx + ny*ny + nz*nz)) * 180/3.1415;
+//atan(1)
 }
 
 double Algorithms::getExposition(Triangle &tr){
@@ -458,7 +458,8 @@ double Algorithms::getExposition(Triangle &tr){
     double nx = uy*vz-vy*uz;
     double ny = -(ux*vz-vx*uz);
 
-    return atan2(nx,ny)* 180/ atan (1);
+    return atan2(nx,ny)* 180/3.1415;
+    //atan(1)
 }
 
 void Algorithms::getSlopes(std::vector<Triangle> &dtt)

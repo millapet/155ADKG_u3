@@ -17,7 +17,13 @@ class Edge
             start = end;
             end = c;
         }
-        bool operator == (const Edge &e) {return true;}
+
+        bool operator==(const Edge &e) const
+        {
+            return(e.start == start) && (e.end == end);
+        }
 };
 
 #endif // EDGE_H
+
+

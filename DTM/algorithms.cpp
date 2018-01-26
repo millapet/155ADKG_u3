@@ -25,7 +25,7 @@ int Algorithms::getPosition(QPoint3D &q,QPoint3D &a, QPoint3D &b)
     return -1;
 }
 
-double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2,QPoint3D &p3)
+double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2,QPoint3D &p3, QPoint3D &cp)
 {
     //Return circle radius
     double x1 = p1.getX();
@@ -55,6 +55,9 @@ double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2,QPoint3D &p3)
     double n = 0.5 * ((k1 * (-k9) + k2 * k8 + k3 * (-k7))/
                       (y1 * (-k9) + y2 * k8 + y3 * (-k7)));
 
+    QPoint3D centr (m, n, 0);
+    cp = centr;
+
     //Radius
     return sqrt((x1 - m) * (x1 - m) + (y1 - n) * (y1 - n));
 
@@ -64,18 +67,42 @@ int Algorithms::getDelaunayPoint(Edge &e, std::vector <QPoint3D> &points)
 {
     QPoint3D p1 = e.getStart();
     QPoint3D p2 = e.getEnd();
+     QPoint3D cp;
+     bool centr_point = false;
+     double radius;
     int i_min = -1;
     double r_min = 1e9;
 
     for(unsigned int i = 0 ; i < points.size() ; i++)
     {
+         centr_point = false;
+
         int test = getPosition(points[i], p1, p2);
-        if( test > 0){
-            double radius = getCircleRadius(points[i], p1, p2);
+        if( test == 0){
+            radius = getCircleRadius(points[i], p1, p2,cp);
             if (radius < r_min)
             {
-                r_min = radius;
-                i_min = i;
+                for(unsigned int k = 0; k < points.size(); k++)
+                {
+                    if(((p1.getX() != points[k].getX())&&(p1.getY() != points[k].getY())) && ((p2.getX() != points[k].getX())&&(p2.getY() != points[k].getY())) && ((points[i].getX() != points[k].getX()) && (points[i].getY() != points[k].getY())))
+                    {
+                        double rp = sqrt((points[k].getX() - cp.getX())*(points[k].getX() - cp.getX()) +(points[k].getY() - cp.getY())*(points[k].getY() - cp.getY()));
+
+                        if(rp < radius)
+                        {
+                            centr_point = true;
+                            break;
+                        }
+                    }
+                }
+                if(!centr_point)
+                {
+                    r_min = radius;
+                    i_min = i;
+                }
+
+
+
             }
         }
     }
@@ -102,6 +129,7 @@ int Algorithms::getNearestPoint(QPoint3D &p, std::vector <QPoint3D> &points)
                 d_min=d;
             }
         }
+
     }
     return i_min;
 }
@@ -382,7 +410,7 @@ std::vector<Edge> Algorithms::createContours(std::vector<Edge> &dt, double zmin,
 std::vector<Triangle> Algorithms::convertDTM(std::vector<Edge>&dt){
     std::vector<Triangle> dtt;
 
-    for(unsigned int i=0; i<dt.size()-2; i += 3 ){
+    for(unsigned int i=0; i<dt.size(); i += 3 ){//-2
         QPoint3D p1 = dt[i].getStart();
         QPoint3D p2 = dt[i].getEnd();
         QPoint3D p3 = dt[i+1].getEnd();

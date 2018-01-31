@@ -218,33 +218,182 @@ kde $n_1, n_2$ jsou vektorové součiny vektorů, které tvoří daný trojůhel
 
 \section{Ukázky aplikace} %printscreen
 \indent Vzhledem k nejasné chybě v algoritmu pro triangulaci je tato kapitola omezená jen na ukázku vzhledu UI a vykreslení vrstevnic. \\
-\begin{figure}[htbp]
+\begin{figure}[hp]
 \centering
         \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{startup.jpg}
         \caption{Vzhled aplikace při otevření}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[hp]
 \centering
         \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{triangulate.jpg}
         \caption{Aplikace po provedení triangulace}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[hp]
 \centering
         \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{contours.jpg}
         \caption{Aplikace po zobrazení vrstevnic}
 \end{figure}
 
+\newpage
+\section{Dokumentace}
+
+\subsubsection{Datové struktury}
+\textbf{QPoint3D} - třída odvozená od třídy \textit{QPointF}, má navíc i souřadnici \textit{Z} ve formátu double. Nad třídou lze zavolat funkce \textit{getX}, \textit{getY}, \textit{getZ}, které vrací příslušnou souřadnci. \\
+\textbf{Edge} - datový typ obsahující dva body typu \textit{QPoint3D}(počátek a konec hrany). Třída obsahuje přetížení operátoru \textit{==} pro porovnávání hran, funkce pro vrácení počátečního a koncového bodu hrany a funkci \textit{switchOrientation} která otáčí orientaci hrany. \\
+\textbf{Triangle} je složený ze tří bodů typu \textit{QPoint3D}, svého sklonu a orientace (které jsou typu \textit{double} a implicitně nulové). Tato třída obsahuje funkce pro přístup k těmto hodnotám a funkce pro jejich pozměnění. \\
+
+\subsubsection{Algorithms} 
+ 
+Tato třída obsahuje algoritmy, které buď přímo slouží k výpočtům nutným pro zvládnutí této úlohy nebo jsou to algoritmy pomocné (jako např. zjištění vzájemné polohy bodu a přímky)
+\bigskip
+\textbf{getPosition} je funkce, která popisuje polohu bodu vůči linii. Do funkce vstupuji 3 hodnoty typu  \textbf{QPoint}, které reprezentuji dva body na přímce a bod, jehož poloha se určuje. Návratová hodnota této funkce je celé číslo \textbf{intiger}, podle výsledku testování.\\ 
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{QPoint \&q} - testovaný bod
+\item \textit{QPoint \&a} - jeden bod linie
+\item \textit{QPoint \&b} - druhý bod linie
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item 0 - bod leží vpravo od přímky
+\item 1 - bod leží vlevo od přímky 
+\end{itemize} 
+\bigskip
+\textbf{getCircleRadius} provádí výpočet poloměru kružnice zadané třemi body a výpočet středu této kružnice, jehož souřadnice se vloží do proměnné předané parametrem.\\
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{QPoint3D \&p1} - bod kružnice
+\item \textit{QPoint3D \&p2} - bod kružnice
+\item \textit{QPoint3D \&p3} - bod kružnice
+\item \textit{QPoint3D \&cp} - bod do kterého se vloží souřadnice středu kružnice
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item hodnota poloměru kružnice v datovém typu \textit{double}
+\end{itemize}
+\bigskip
+\textbf{getDelaunayPoint} hledá index takového bodu, který má od zadané hrany minimální poloměr opsané kružnice.\\
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{Edge \&e} - hrana ke které hledáme bod
+\item \textit{std::vector <QPoint3D> \&points} - vstupní množina bodů
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item index hledaného bodu ve vektoru \textit{points}, při chybě vrací -1
+\end{itemize}
+\bigskip
+\textbf{getNearestPoint} určuje index nejbližšího bodu k zadanému bodu
+\textbf{Input:}
+\begin{itemize} 
+\item \textit{QPoint3D \&p} - zadaný bod
+\item \textit{std::vector <QPoint3D> \&points} - vstupní množina bodů
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item index nejbližšího bodu v datovém typu \textit{int}
+\end{itemize}
+\bigskip
+\textbf{dt} provede vlastní triangulaci nad zadanou množinou bodů a vrací seznam orientovaných hran.
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{std::vector <QPoint3D> \&points} - vstupní množina bodů
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item výsledný vektor hran v datovém typu \textit{std::vector<Edge>}
+\end{itemize}
+\bigskip
+\textbf{getConPoint} nalezne bod o zadané výšce mezi dvěma zadanými body
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{QPoint3D \&p1} - zadaný bod
+\item \textit{QPoint3D \&p2} - zadaný bod
+\item \textit{double \&z} - zadaná výška
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item bod na vrstevnici ve formátu \textit{QPoint3D}
+\end{itemize}
+\bigskip
+\textbf{createContours} vytvoří vektor hran vrstevnic
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{std::vector<Edge>\&dt} - triangulace na které hledáme vrstevnice
+\item \textit{double zmin} - minimální výška vrstevnic
+\item \textit{double zmax} - maximální výška vrstevnic
+\item \textit{double h} - vzdálenost mezi vrstevnicemi
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item seznam hran vrstevnic ve formátu \textit{std::vector<Edge>}
+\end{itemize}
+\bigskip
+\textbf{convertDTM} převede vektor hran výsledné triangulace na vektor trojúhelíků
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{std::vector<Edge>} - hrany výsledné triangulace
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item \textit{std::vector<Triangle>} - převedené trojúhelníky
+\end{itemize}
+\bigskip
+\textbf{getSlope} vypočítá sklon zadaného trojúhelníku
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{Triangle} - zadaný trojúhelník
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item velikost sklonu ve formátu \textit{double}
+\end{itemize}
+\bigskip
+\textbf{getExposition} vypočítá orientaci zadaného trojúhelníku
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{Triangle} - vstupní trojúhelník
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item úhel natočení ve formátu \textit{double}
+\end{itemize}
+\textbf{getSlopes} nastavují sklony jednotlivých trojúhelníků v zadaném vektoru
+ \textbf{Input:}
+\begin{itemize} 
+\item \textit{std::vector<Triangle> \&dtt} - vstupní vektor trojúhelníků u kterých se nastavuje sklon
+\end{itemize}
+ \textbf{Output:}
+\begin{itemize} 
+\item \textit{void}
+\end{itemize}
+\bigskip 
+
+\subsubsection{Draw} 
+Třída \textbf{Draw} slouží k vykreslení vypočtených triangulací, sklonů, orientací a vrstevnic.\\
+\textbf{loaddata} je funkce sloužící k parsování souboru zvoleného uživatelem a vložení dat do proměnné \textit{std::vector<double> \&data}. \\
+
+\textbf{clear}, funkce slouži k vyčištění všech dosavadních výpočtů. Ponechává pouze načtené body. \\
+
+\textbf{delaunaydraw} vykreslí vypočtenou triangulaci. \\
+\textbf{slopedraw} vykreslí sklon jednotlivých trojúhelníků triangulace. \\
+\textit{orientdraw} vykreslí orientaci jednotlivých trojúhelníků triangulace. \\
+\textit{countoursdrawing} vykreslí vrstevnice. \\
+\textit{paintEvent} funkce volaná při každém překreslení okna, podle nastavených flags volá funkce pro vykreslení různých vlastností triangulace a triangulace samotné. \\
+
+\subsubsection{Widget} 
+
+Tato třída je vytvořena pro praci s grafickým rozhraním celého programu. Přes ní se provádí načtení souborů a grafické znázornění výsledků aplikace. Po kliknutí na tlačítko v aplikaci se pustí příslušná funkce v této třídě a zavolá funkci na výpočet a vykreslení, případně načtená dat.\\ 
+
+\subsubsection{sortby-funkce}
+Tyto třídní funkce slouží k seřazení vektoru souřadnic vzestupně podle velikosti buď souřadnice \textit{X} nebo \textit{Y}.
+
 \section{Závěr}
 Byla vytvořena aplikace, která nad Delaunay triangulací počítá a zobrazuje sklon, vrstevnice a orientaci svahu. Aplikace má pár nedostatků, které již bohužel autoři nestihli opravit.
 	\subsection{Náměty na vylepšení} %+možné či neřešené problémy
-	V aplikaci je několik problému, které jsou vyřešeny špatně a bohužel nezbyl čas je opravit. Mezi tyto chyby patří: 
-	\begin{itemize}
-	\item Špatné počítání sklonu - barva by se měla údajně měnit v různých stupních šedi.
-	\item Špatný výpočet orientace - při každém překreslení dává jiné výsledky.
-	\item Špatné zadávání velkého množství dat - z autorce neznámého důvodu program zvládá načíst menší soubor s ručně psanými daty, ale data převzatá od kolegy Bc. Bucka a upravená autorem načíst nelze. Autorka se domnívá, že je problém buď ve formátu převzatých dat nebo v načítání, které by mohlo být zbytečně pomalé a zdlouhavé. Bohužel nezbyl čas na to zjistit, o kterou z těchto dvou příčin by se mohlo jednat. 
-	\end{itemize}
+Samozřejmě že aplikace není bez chyb a je zde prostor pro vylepšení. Bylo by vhodné, kdyby si uživatel mohl vybrat, v odstínech jaké barvy se mu zobrazí vypočítaný sklon. Vrstevnice by mohly mít možnost popisu číslem a překreslení bodů podle velikosti okna by se mohlo provádět hned.
 	
 %\pagestyle{empty}
 

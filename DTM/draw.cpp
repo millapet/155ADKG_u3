@@ -104,6 +104,7 @@ void draw::slopedraw(){
         painter.fillPath(psway,painpolslope);
     }
     painter.end();
+    drawpolygons.clear();
 
 }
 
@@ -170,6 +171,7 @@ void draw::orientdraw(){
         painter.fillPath(path,painpolorient);
    }
     painter.end();
+    drawpolygons.clear();
 }
 
 void draw::contoursdrawing(){
@@ -212,11 +214,11 @@ void draw::clear()
     maxX = 0;
     minY = 0;
     maxY = 0;
-    */
     maxhd = 0;
     minhd = 0;
     mdistd = 0;
     distd = 0;
+    */
     orientflag = false;
     slopeflag = false;
     contflag = false;
@@ -249,7 +251,6 @@ if(slopeflag==true){
 }
 if(orientflag==true){
     orientdraw();
-
 }
 if(contflag == true){
     contoursdrawing();

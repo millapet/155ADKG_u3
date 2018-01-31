@@ -63,7 +63,8 @@ void Widget::on_loadButton_clicked()
    ui->lowheight->setNum(Min);
    ui->report->setText("Now apply the Delaunay triangulation.");
    ui->delaunayButton->setEnabled(1);
-    ui->Canvas->repaint();
+   QSize s = ui->Canvas->size();
+   ui->Canvas->repaint();
 }
 
 void Widget::on_delaunayButton_clicked()
@@ -85,6 +86,10 @@ void Widget::on_delaunayButton_clicked()
 
 void Widget::on_slopeButton_clicked()
 {
+    QSize s = ui->Canvas->size();
+    ui->Canvas->delaunaydraw(s);
+    ui->Canvas->repaint();
+
     ui->report->setText("Select another action.");
     ui->Canvas->orientflag = false;
     ui->Canvas->slopeflag = true;
@@ -93,11 +98,14 @@ void Widget::on_slopeButton_clicked()
 
 void Widget::on_orientationButton_clicked()
 {
+    QSize s = ui->Canvas->size();
+    ui->Canvas->delaunaydraw(s);
+    ui->Canvas->repaint();
+
     ui->report->setText("Select another action.");
     ui->Canvas->orientflag = true;
     ui->Canvas->slopeflag = false;
     ui->Canvas->repaint();
-
 }
 
 void Widget::on_contourButton_clicked()
@@ -125,7 +133,7 @@ else{
 void Widget::on_clearButton_clicked()
 {
 ui->Canvas->clear();
-ui->report->setText("Select an action.");
+ui->report->setText("Now apply the Delaunay triangulation again.");
 ui->contourButton->setDisabled(1);
 ui->slopeButton->setDisabled(1);
 ui->orientationButton->setDisabled(1);
@@ -133,8 +141,8 @@ ui->usertopheight->setDisabled(1);
 ui->usertopheight->clear();
 ui->userlowheight->setDisabled(1);
 ui->userlowheight->clear();
-ui->lowheight->clear();
-ui->topheight->clear();
-ui->cdist->setDisabled(1);
+//ui->lowheight->clear();
+//ui->topheight->clear();
+//ui->cdist->setDisabled(1);
 ui->Canvas->repaint();
 }

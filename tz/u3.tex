@@ -184,6 +184,22 @@
 \indent Triangulace byla realizována metodou inkrementální konstrukce. Tato metoda je založena na postupném přidávání bodů do již vytvořené triangulace. Hledá se takový bod, který má spolu s dvěma body triangulace nejmenší opsanou kružnici. Každá hrana trojúhelníku je orientována a body hledáme pouze vlevo od ní. \\
 \indent Pokud je nalezen vyhovující bod, jsou do výsledné triangulace přidány orientované hrany nového trojúhelníku. Pokud neexistuje žádný takový bod, změníme orientaci hrany a hledání opakujeme. \\
 \indent Pro ukládání hran se používá tzv. \textit{Active Edge List}. Tato struktura obsahuje hrany, ke kterým hledáme třetí bod. Když je třetí bod k hraně nalezen, hrana je odebrána ze seznamu. Následně se kontroluje, zda není v AEL tato hrana již přítomna s opačnou orientací. Pokud je, je z tohoto seznamu odstraněna. Pokud není, je hrana do AEL naopak přidána. V každém případě je ale hrana přidána do výsledné triangulace. Takto se v algoritmu postupuje, dokud není AEL prázdný. 
+\textit{Postup při inkrementální konstrukci: }
+\begin{itemize} 
+\item náhodný bod \textit{$p_1$} a jemu nejbližší bod \textit{$p_2$}
+\item hrana \textit{$e_1$} z bodů \textit{$p_1$} a \textit{$p_2$}
+\item \textit{$p_3$} je bod s nejmenší Delaunay vzdáleností k hraně \textit{$e_1$} vlevo od hrany. 
+\item pokud se žádný bod nenajde, prohodí se orientace hrany \textit{$e_1$} a hledá se znovu
+\item po nalezení bodu \textit{$p_3$} se z \textit{$p_1, p_2, p_3$} vytvoří hrany \textit{$e_2$} a \textit{$e_3$} které spolu s hranou \textit{$e_1$} tvoří orientovaný trojúhelník
+\item dokud není AEL prázdný, přidej \textit{$e_1, e_2, e_3$} do AEL: 
+	\begin{itemize}
+	\item \textit{$e_1$} první hrana AEL
+	\item změna orientace \textit{$e_1$}
+	\item hledáme bod \textit{p} který má nejmenší Delaunay vzdálenost vlevo od otočené \textit{$e_1$}
+	\item pokud takový bod existuje, přidej \textit{$e_2, e_3$} do AEL a hranu  \textit{$e_1$} do triangulace
+	\item pokud takový bod neexistuje, odstraň \textit{$e_1$} z AEL
+	\end{itemize}
+\end{itemize}
 \subsection{Vrstevnice}
 \indent Vrstevnice byly počítány pomocí lineární interpolace. U lineární interpolace je rozestup mezi dvěma body konstantní, spád terénu taktéž. \\
 \indent Princip spočívá ve vyhledání průsečnice roviny určené postupně každým trojúhelníkem a roviny vodorovné se zadanou výškou \textit{h}, ve které chceme bod vrstevnice nalézt. \\
@@ -234,6 +250,18 @@ kde $n_1, n_2$ jsou vektorové součiny vektorů, které tvoří daný trojůhel
 \centering
         \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{contours.jpg}
         \caption{Aplikace po zobrazení vrstevnic}
+\end{figure}
+
+\begin{figure}[hp]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{slope.jpg}
+        \caption{Aplikace po vypočítání sklonu}
+\end{figure}
+
+\begin{figure}[hp]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{orientation.jpg}
+        \caption{Aplikace po vypočtení orientace svahů}
 \end{figure}
 
 \newpage

@@ -233,7 +233,6 @@ kde $n_1, n_2$ jsou vektorové součiny vektorů, které tvoří daný trojůhel
 
 
 \section{Ukázky aplikace} %printscreen
-\indent Vzhledem k nejasné chybě v algoritmu pro triangulaci je tato kapitola omezená jen na ukázku vzhledu UI a vykreslení vrstevnic. \\
 \begin{figure}[hp]
 \centering
         \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{startup.jpg}
@@ -418,10 +417,21 @@ Tato třída je vytvořena pro praci s grafickým rozhraním celého programu. P
 \subsubsection{sortby-funkce}
 Tyto třídní funkce slouží k seřazení vektoru souřadnic vzestupně podle velikosti buď souřadnice \textit{X} nebo \textit{Y}.
 
-\section{Závěr}
-Byla vytvořena aplikace, která nad Delaunay triangulací počítá a zobrazuje sklon, vrstevnice a orientaci svahu. Aplikace má pár nedostatků, které již bohužel autoři nestihli opravit.
-	\subsection{Náměty na vylepšení} %+možné či neřešené problémy
-Samozřejmě že aplikace není bez chyb a je zde prostor pro vylepšení. Bylo by vhodné, kdyby si uživatel mohl vybrat, v odstínech jaké barvy se mu zobrazí vypočítaný sklon. Vrstevnice by mohly mít možnost popisu číslem a překreslení bodů podle velikosti okna by se mohlo provádět hned.
+\section{Závěr a náměty na vylepšení}
+Byla vytvořena aplikace, která nad Delaunay triangulací počítá a zobrazuje sklon, vrstevnice a orientaci svahu. Aplikace má pár nedostatků, které již bohužel autoři nestihli opravit. \\
+\indent Samozřejmě že aplikace není bez chyb a je zde prostor pro vylepšení. Bylo by vhodné, kdyby si uživatel mohl vybrat, v odstínech jaké barvy se mu zobrazí vypočítaný sklon. Vrstevnice by mohly mít možnost popisu číslem a překreslení bodů podle velikosti okna by se mohlo provádět hned. \\
+\indent Algortmus je nevhodný pro body, které jsou pravidelně rozmístěny na mřížce. Vzhledem k tomu, že triangulace funguje na principu vyhledání kružnice s nejmenším poloměrem, je pro tyto body nejednoznačná a další výpočty pak selhávají. (Viz následující obrázky)
+\begin{figure}[hb]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{grid_dt.jpg}
+        \caption{Triangulace bodů na mřížce}
+\end{figure}
+\begin{figure}[htb]
+\centering
+        \includegraphics[trim=0cm 0cm 0cm 0cm, width=1\textwidth]{grid_slope.jpg}
+        \caption{Výpočet sklonu terénu na mřížce (body ve skutečnosti tvoří pravidelný vrchol uprostřed)}
+\end{figure}
+
 	
 %\pagestyle{empty}
 

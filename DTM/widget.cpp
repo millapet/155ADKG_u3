@@ -118,7 +118,7 @@ int minh=heil.toInt();
 int dist=dist_.toInt();
 double pt_maxh = ui->topheight->text().toDouble();
 double pt_minh = ui->lowheight->text().toDouble();
-if(maxh<pt_maxh&&minh>pt_minh&&dist<(pt_maxh-pt_minh)){
+if(maxh<=pt_maxh&&minh>=pt_minh&&dist<(pt_maxh-pt_minh)){
     ui->Canvas->maxhd = maxh;
     ui->Canvas->minhd = minh;
     ui->Canvas->distd = dist;
